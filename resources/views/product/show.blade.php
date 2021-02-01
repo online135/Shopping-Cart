@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>產品頁</h1>
+    <h1>Product Show Page</h1>
     <img width="400" src="{{ $product['imageUrl'] }}" alt="fruit image">
 @endsection
 
