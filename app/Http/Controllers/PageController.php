@@ -33,7 +33,7 @@ class PageController extends Controller
         $name = 'test';
         $version = $request->input('version');
 
-        return view('shopping', [
+        return view('test', [
             'name' => $name,
             'version' => $version
         ]);

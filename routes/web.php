@@ -20,5 +20,5 @@ Route::get('/', [PageController::class, 'index']);
 Route::get('/shopping', [PageController::class, 'shopping']);
 Route::get('/test', [PageController::class, 'test']);
 
-Route::get('/product', [ProductController::class, 'show'])->name('product.show');;
+Route::get('/products/{id}', [ProductController::class, 'show'])->where('id', '[0-9]+')->name('product.show');;
 

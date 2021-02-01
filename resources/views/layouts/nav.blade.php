@@ -9,7 +9,7 @@
             <i class="fa fa-bars" aria-hidden="true">按鈕</i>
         </button>
 
-        <a href="{{ route('product.show') }}" class="btn btn-info" role="button">Show Page</a>
+        <a href="{{ url('/products/1') }}" class="btn btn-info" role="button">Show Page</a>
 
     </nav>
 </header>
