@@ -16,12 +16,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 
-Route::get('/', function () {
-    return view('home');
-});
-
+Route::get('/', [PageController::class, 'index']);
 Route::get('/shopping', [PageController::class, 'shopping']);
 Route::get('/test', [PageController::class, 'test']);
 
-Route::get('/product', [ProductController::class, 'show']);
+Route::get('/product', [ProductController::class, 'show'])->name('product.show');;
 

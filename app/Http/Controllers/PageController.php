@@ -6,9 +6,20 @@ use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
+    function index(Request $request) {
+
+        $name = 'index';
+        $version = $request->input('version');
+        
+        return view('home', [
+            'name' => $name,
+            'version' => $version
+        ]);
+    }
+
     function shopping(Request $request) {
 
-        $name = 'apple';
+        $name = 'shopping';
         $version = $request->input('version');
         
         return view('shopping', [
@@ -19,7 +30,7 @@ class PageController extends Controller
 
     function test(Request $request) {
 
-        $name = 'orange';
+        $name = 'test';
         $version = $request->input('version');
 
         return view('shopping', [
