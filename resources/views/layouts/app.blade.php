@@ -1,12 +1,9 @@
 <html>
     <head>
-        <title>App Name - @yield('title')</title>
+        <title>購物車</title>
+        <meta charset="utf-8" />
     </head>
     <body>
-        @section('sidebar')
-            This is the master sidebar.
-        @show
-
         <div class="container">
             @yield('content')
         </div>
