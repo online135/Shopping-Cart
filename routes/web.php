@@ -15,10 +15,11 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\OrderController;
 
 Route::get('/', [PageController::class, 'index']);
 Route::get('/shopping', [PageController::class, 'shopping']);
 Route::get('/test', [PageController::class, 'test']);
 
-Route::get('/products/{id}', [ProductController::class, 'show'])->where('id', '[0-9]+')->name('product.show');;
-
+Route::resource('products', ProductController::class);
+Route::resource('orders', OrderController::class);
