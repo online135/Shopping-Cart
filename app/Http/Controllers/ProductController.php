@@ -41,15 +41,22 @@ class ProductController extends Controller
         return redirect()->route('products.index');
     }
 
-
     /**
      * Display the specified resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    function show($id, Request $request)
+    function show(Request $request, $id)
     {
+        // order => 訂單
+        // product => 商品
+        // prefix => 前綴
+
+        // $id = $request->input('id');
+
+
         $products = $this->getProducts();
 
         $index = $id - 1;
@@ -89,12 +96,16 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
      * @param  \Illuminate\Http\Request  $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update($id, Request $request)
+    public function update(Request $request, $id)
     {
+        //
+        // $method = $request->method();
+        // echo "update $method";
+
         $products = $this->getProducts();
 
         $index = $id - 1;
@@ -108,7 +119,6 @@ class ProductController extends Controller
 
     }
 
-
     /**
      * Remove the specified resource from storage.
      *
@@ -119,7 +129,6 @@ class ProductController extends Controller
     {
         return redirect()->route('products.index');
     }
-
 
     /**
      * Get Products data from array
