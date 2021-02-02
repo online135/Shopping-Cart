@@ -12,14 +12,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 
-Route::get('/', [PageController::class, 'index']);
-Route::get('/shopping', [PageController::class, 'shopping']);
-Route::get('/test', [PageController::class, 'test']);
+Route::get('/', function () {
+    return view('home');
+});
 
 Route::resource('products', ProductController::class);
 Route::resource('orders', OrderController::class);

@@ -6,12 +6,11 @@
     </head>
     <body>
         @include('layouts.nav')
-
-        <div class="container">
-            @yield('content')
-        </div>
-        
+        @yield('content')
         @include('layouts.footer')
         @include('layouts.js')
+
+        @section('inline_js')
+        @show
     </body>
 </html>

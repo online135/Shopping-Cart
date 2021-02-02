@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1>Products Index Page</h1>
+<h1>Products </h1>
 <div>
     <a href="{{ route('products.create') }}">Create</a>
     <hr/>
@@ -11,7 +11,7 @@
 <div>
     <div>
         <a href="{{ route('products.show', ['product' => $product['id'] ]) }}">
-            <img width="400" src="{{ $product['imageUrl'] }}" alt="fruit image">
+            <img width="400" src="{{ $product['imageUrl'] }}">
         </a>
     </div>
     <div>
@@ -21,10 +21,13 @@
             @method('delete')
             <button type="submit">delete</button>
         </form>
+    
     </div>
     <hr/>
 </div>
 @endforeach
+
+
 
 @endsection
 
