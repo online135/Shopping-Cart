@@ -3,11 +3,27 @@
 @section('content')
 
 <h1>Products Index Page</h1>
+<div>
+    <a href="{{ route('products.create') }}">Create</a>
+    <hr/>
+</div>
 @foreach ($products as $product)
-    <a href="{{ route('products.show', ['product' => $product['id'] ]) }}">
-        <img width="400" src="{{ $product['imageUrl'] }}" alt="fruit image">
-    </a>
-    <br/>
+<div>
+    <div>
+        <a href="{{ route('products.show', ['product' => $product['id'] ]) }}">
+            <img width="400" src="{{ $product['imageUrl'] }}" alt="fruit image">
+        </a>
+    </div>
+    <div>
+        <a href="{{ route('products.edit', ['product' => $product['id'] ]) }}">Edit</a>
+        <form method="post" action="{{ route('products.destroy', ['product' => $product['id']]) }}">
+            @csrf
+            @method('delete')
+            <button type="submit">delete</button>
+        </form>
+    </div>
+    <hr/>
+</div>
 @endforeach
 
 @endsection
