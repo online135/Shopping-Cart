@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>進度條 Laravel Controller 章節</title>
+        <title>購物車</title>
         @include('layouts.meta')
         @include('layouts.css')
     </head>
