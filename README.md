@@ -1,8 +1,37 @@
 重新 clone 流程
 
-1. 指定位置 git clone git@github.com:online135/Shopping-Cart.git
+(windows)
+安裝 xampp第8版 => 要調整 C:\xampp8\apache\conf\extra\httpd-vhosts.conf
 
-2. 安裝及升級套件
+<!--   加入以下內容(或類似內容)
+
+<VirtualHost laravel.local:80>
+    DocumentRoot "C:\xampp8\htdocs\Shopping-Cart/public"
+    <Directory "C:\xampp8\htdocs\Shopping-Cart/public">
+        Options All
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>
+
+<VirtualHost laravel.local:443>
+    DocumentRoot "C:\xampp8\htdocs\Shopping-Cart/public"
+    <Directory "C:\xampp8\htdocs\Shopping-Cart/public">
+        Options All
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>
+
+-->
+
+1. 指定位置 ( C:\xampp\htdocs\ )
+
+git clone git@github.com:online135/Shopping-Cart.git
+
+=> 會生成一個新的資料夾 Shopping-Cart
+
+2. 進去該資料夾內用 cmd 安裝及升級套件  (用 Visual Code 開該資料夾, 再開 Terminal )
 
 npm install
 
@@ -17,3 +46,16 @@ composer update
 4. 生成新的 key
 
 php artisan key:generate
+
+接下來就可以使用了
+
+http://127.0.0.1/products
+
+
+----
+
+若有更動到 javascript
+
+要開一個新的 Terminal run Node.js
+
+npm run watch

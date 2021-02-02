@@ -151,8 +151,8 @@ function initAddToCart() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\cty22\Desktop\Coureses\Laravel\projects\04. controller_and_view\pb_controller\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\cty22\Desktop\Coureses\Laravel\projects\04. controller_and_view\pb_controller\resources\css\app.scss */"./resources/css/app.scss");
+__webpack_require__(/*! C:\xampp8\htdocs\shopping-cart\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp8\htdocs\shopping-cart\resources\css\app.scss */"./resources/css/app.scss");
 
 
 /***/ })
