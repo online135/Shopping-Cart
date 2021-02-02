@@ -38,7 +38,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return redirect()->route('products.create');
     }
 
     /**
@@ -94,7 +94,16 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $products = $this->getProducts();
+
+        $index = $id - 1;
+        if ($index < 0 || $index >= count($products)) {
+            abort(404);
+        } 
+
+        $product = $products[$index];
+
+        return redirect()->route('products.index', ['product' => $product['id']]);
     }
 
     /**
@@ -105,7 +114,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return redirect()->route('products.index');
     }
 
     /**
