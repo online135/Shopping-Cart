@@ -45,14 +45,14 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $product
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    function show(Request $request, $product)
+    function show($id, Request $request)
     {
         $products = $this->getProducts();
 
-        $index = $product - 1;
+        $index = $id - 1;
         if ( $index < 0 || $index >= count($products)){
             abort(404);
         }
@@ -67,14 +67,14 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $product
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($product)
+    public function edit($id)
     {
         $products = $this->getProducts();
 
-        $index = $product - 1;
+        $index = $id - 1;
         if ( $index < 0 || $index >= count($products)){
             abort(404);
         }
@@ -89,15 +89,15 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
+     * @param  int  $id
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $product)
+    public function update($id, Request $request)
     {
         $products = $this->getProducts();
 
-        $index = $product - 1;
+        $index = $id - 1;
         if ( $index < 0 || $index >= count($products)){
             abort(404);
         }
@@ -112,10 +112,10 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $product
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($product)
+    public function destroy($id)
     {
         return redirect()->route('products.index');
     }
