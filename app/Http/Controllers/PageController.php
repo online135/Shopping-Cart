@@ -6,36 +6,14 @@ use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
-    function index(Request $request) {
-
-        $name = 'index';
-        $version = $request->input('version');
-        
-        return view('home', [
-            'name' => $name,
-            'version' => $version
-        ]);
-    }
-
-    function shopping(Request $request) {
-
-        $name = 'shopping';
-        $version = $request->input('version');
-        
-        return view('shopping', [
-            'name' => $name,
-            'version' => $version
-        ]);
-    }
-
-    function test(Request $request) {
-
-        $name = 'test';
+    function pb(Request $request)
+    {
+        $level = 54;
         $version = $request->input('version');
 
-        return view('test', [
-            'name' => $name,
-            'version' => $version
+        return view('pb', [
+            'ver' => $version,
+            'level' => $level
         ]);
     }
 }

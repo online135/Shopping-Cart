@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>首頁</h1>
-    <p>name: {{ $name }}</p>
-    <p>version: {{ $version }}</p>
+
+<h1>Home</h1>
+
 @endsection
 
 @section('inline_js')
