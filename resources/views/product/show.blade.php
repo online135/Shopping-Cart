@@ -15,6 +15,7 @@
     @parent
 
     <script>
-        initAddToCart()
+        var productId = "{{ $product['id'] }}"
+        initAddToCart(productId)
     </script>
 @endsection

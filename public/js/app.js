@@ -122,7 +122,40 @@ window.initAddToCart = _cart__WEBPACK_IMPORTED_MODULE_0__["initAddToCart"];
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initAddToCart", function() { return initAddToCart; });
-function initAddToCart() {
+function initCart() {
+  return getCart();
+}
+
+function getCart() {
+  var cart = Cookies.get('cart');
+  return !cart ? {} : JSON.parse(cart);
+}
+
+function saveCart(cart) {
+  Cookies.set('cart', JSON.stringify(cart));
+}
+
+function addProductToCart(productId, quantity) {
+  var cart = getCart();
+  var currentQuantity = parseInt(cart[productId]) || 0;
+  var addQuantity = parseInt(quantity) || 0;
+  var newQuantity = currentQuantity + addQuantity;
+  updateProductToCart(productId, newQuantity);
+}
+
+function updateProductToCart(productId, newQuantity) {
+  var cart = getCart();
+  cart[productId] = newQuantity;
+  saveCart(cart);
+}
+
+function alertProductQuantity(productId) {
+  var cart = getCart();
+  var quantity = parseInt(cart[productId]) || 0;
+  alert(quantity);
+}
+
+function initAddToCart(productId) {
   var addToCartBtn = document.querySelector('#addToCart');
 
   if (addToCartBtn) {
@@ -130,11 +163,8 @@ function initAddToCart() {
       var quantityInput = document.querySelector('input[name="quantity"]');
 
       if (quantityInput) {
-        var quantity = parseInt(Cookies.get('quantity')) || 0;
-        var addQuantity = parseInt(quantityInput.value) || 0;
-        var newQuantity = quantity + addQuantity;
-        Cookies.set('quantity', newQuantity);
-        alert(newQuantity);
+        addProductToCart(productId, quantityInput.value);
+        alertProductQuantity(productId);
       }
     });
   }
@@ -151,8 +181,8 @@ function initAddToCart() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\cty22\Desktop\Coureses\Laravel\projects\04. controller_and_view\pb_controller\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\cty22\Desktop\Coureses\Laravel\projects\04. controller_and_view\pb_controller\resources\css\app.scss */"./resources/css/app.scss");
+__webpack_require__(/*! C:\xampp8\htdocs\shopping-cart\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp8\htdocs\shopping-cart\resources\css\app.scss */"./resources/css/app.scss");
 
 
 /***/ })
