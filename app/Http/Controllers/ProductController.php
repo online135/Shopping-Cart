@@ -50,13 +50,6 @@ class ProductController extends Controller
      */
     function show(Request $request, $id)
     {
-        // order => 訂單
-        // product => 商品
-        // prefix => 前綴
-
-        // $id = $request->input('id');
-
-
         $products = $this->getProducts();
 
         $index = $id - 1;
@@ -102,10 +95,6 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-        // $method = $request->method();
-        // echo "update $method";
-
         $products = $this->getProducts();
 
         $index = $id - 1;
@@ -116,7 +105,6 @@ class ProductController extends Controller
         $product = $products[$index];
 
         return redirect()->route('products.edit', ['product' => $product['id']]);
-
     }
 
     /**
