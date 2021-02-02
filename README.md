@@ -47,15 +47,12 @@ composer update
 
 php artisan key:generate
 
-接下來就可以使用了
+(以上是開發狀態不用管 key 的時候的作法)
 
-http://127.0.0.1/products
+javascript 比較麻煩
 
-
-----
-
-若有更動到 javascript
-
-要開一個新的 Terminal run Node.js
+如果有改動的話, 要記得重新
 
 npm run watch
+
+去啟動跟更新新的 node.js
