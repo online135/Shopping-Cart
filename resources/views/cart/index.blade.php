@@ -3,6 +3,9 @@
 @section('content')
 
 <h1>Cart</h1>
+<form action="{{ route('cart.cookie.update') }}" method="POST">
+@csrf_token
+@method('PATCH')
 <table border='1'>
     <thead>
         <tr>
@@ -16,25 +19,38 @@
         @foreach($cartItems as $cartItem)
         <tr>
             <td>
-                <p>{{ $cartItem["product"]['name'] }}</p>
-                <div><img src='{{ $cartItem["product"]["imageUrl"] }}' style="width:80px;"></div>
+                <p>{{ $cartItem['product']['name'] }}</p>
+                <div><img src="{{ $cartItem['product']['imageUrl'] }}" style='width:80px;'></div>
             </td>
-            <td>{{ $cartItem["product"]['price'] }}</td>
+            <td>{{ $cartItem['product']['price'] }}</td>
             <td>
-                <input type="number" min="1" value="{{ $cartItem['quantity'] }}">
+                <input
+                    type="number"
+                    name="product_{{ $cartItem['product']['id'] }}"
+                    min="1"
+                    value="{{ $cartItem['quantity'] }}"
+                >
             </td>
             <td>
-                <button type="button">delete</button>
+                <button
+                    type="button"
+                    class="cartDeleteBtn"
+                    data-id="{{ $cartItem['product']['id'] }}"
+                >delete</button>
             </td>
         </tr>
         @endforeach
     </tbody>
 </table>
+</form>
 <hr/>
-<button type="button">Update</button>
+<button type="submit">Update</button>
 
 @endsection
 
 @section('inline_js')
     @parent
+    <script>
+        initCartDeleteButton("{{ route('cart.cookie.delete') }}")
+    </script>
 @endsection
