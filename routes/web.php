@@ -25,6 +25,6 @@ Route::get('/', function () {
 Route::resource('products', ProductController::class);
 Route::resource('orders', OrderController::class);
 
+Route::resource('cart', CartController::class);
 Route::patch('/cart/cookie', [CartController::class, 'updateCookie'])->name('cart.cookie.update');
 Route::delete('/cart/cookie', [CartController::class, 'deleteCookie'])->name('cart.cookie.delete');
-Route::resource('cart', CartController::class);
