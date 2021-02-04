@@ -6,6 +6,14 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    private $products;
+
+    public function __construct()
+    {
+        $this->products = $this->getProducts();
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -13,10 +21,8 @@ class ProductController extends Controller
      */
     function index()
     {
-        $products = $this->getProducts();
-
         return view('product.index', [
-            "products" => $products
+            "products" => $this->products
         ]);
     }
 
@@ -53,14 +59,12 @@ class ProductController extends Controller
      */
     function show(Request $request, $id)
     {
-        $products = $this->getProducts();
-
         $index = $id - 1;
-        if ( $index < 0 || $index >= count($products)){
+        if ( $index < 0 || $index >= count($this->products)){
             abort(404);
         }
 
-        $product = $products[$index];
+        $product = $this->products[$index];
 
         return view('product.show', [
             "product" => $product
@@ -75,14 +79,12 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $products = $this->getProducts();
-
         $index = $id - 1;
-        if ( $index < 0 || $index >= count($products)){
+        if ( $index < 0 || $index >= count($this->products)){
             abort(404);
         }
 
-        $product = $products[$index];
+        $product = $this->products[$index];
 
         return view('product.edit', [
             "product" => $product
@@ -98,14 +100,12 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $products = $this->getProducts();
-
         $index = $id - 1;
-        if ( $index < 0 || $index >= count($products)){
+        if ( $index < 0 || $index >= count($this->products)){
             abort(404);
         }
 
-        $product = $products[$index];
+        $product = $this->products[$index];
 
         return redirect()->route('products.edit', ['product' => $product['id']]);
     }
