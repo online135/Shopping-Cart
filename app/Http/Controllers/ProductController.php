@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Rules\ProductImageRule;
 
 class ProductController extends Controller
 {
@@ -45,8 +46,16 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'product_name' => 'required|unique:posts|max:255'
+            'product_name' => 'required|string|max:6',
+            'product_price' => 'required|integer|min:0|max:9999',
+            'product_image' => [
+                'required',
+                'string',
+                new ProductImageRule,
+            ],
         ]);
+
+        // images/apple01.jpg
         return redirect()->route('products.index');
     }
 
