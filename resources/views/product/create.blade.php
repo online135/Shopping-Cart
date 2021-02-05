@@ -1,3 +1,7 @@
+@extends('layouts.app')
+
+@section('content')
+
 <form method="post" action="{{ route('products.store') }}">
     @csrf
     <div>
@@ -19,14 +23,17 @@
         <button type="submit">Submit</button>
     </div>
 </form>
+        @if($errors->products->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach($errors->products->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+@endsection
 
-
-@if($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+@section('inline_js')
+    @parent
+@endsection
