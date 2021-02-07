@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Rules\ProductImageRule;
-use Illuminate\Support\Facades\Validator;
+//use App\Rules\ProductImageRule;
+//use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -35,6 +36,7 @@ class ProductController extends Controller
      */
     public function create()
     {
+        //Storage::delete('03.jpg');
         return view('product.create');
     }
 
@@ -46,6 +48,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        /*
         $validator = Validator::make($request->all(), [
             'product_name' => 'required|string|max:6',
             'product_price' => 'required|integer|min:0|max:9999',
@@ -57,6 +60,7 @@ class ProductController extends Controller
         ], [
             'required' => 'The :attribute field is required!!!!',
         ])->validateWithBag('products');
+        */
 
         //if ($validator->fails()) {
         //    return redirect('products/create')
@@ -65,7 +69,27 @@ class ProductController extends Controller
         //}
 
         // images/apple01.jpg
-        return redirect()->route('products.index');
+        $diskName = "product_images";
+
+        $name = $request->file('product_image')->getClientOriginalName();
+
+        $path = $request->file('product_image')->storeAs(
+            'products',
+            $name,
+            'public'
+        );
+
+        //$localPath = public_path("storage/product_images/$path");
+        $url = Storage::disk($diskName)->url($path);
+        $fullURL = asset($url);
+        $storage_path = Storage::disk($diskName)->path($path);
+
+        return redirect()->route('products.index')->withErrors([
+            $localPath,
+            $url,
+            $fullURL,
+            $storage_path
+        ]);
     }
 
     /**

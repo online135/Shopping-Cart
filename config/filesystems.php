@@ -55,6 +55,11 @@ return [
             'visibility' => 'public',
         ],
 
+        'restrict_files' => [
+            'driver' => 'local',
+            'root' => storage_path('app/restrict_files'),
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

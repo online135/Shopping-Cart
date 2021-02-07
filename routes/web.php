@@ -17,9 +17,12 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CartController;
 
+Route::get('/', [PageController::class, 'home']);
+Route::get('/download/{id}', [PageController::class, 'download'])
+->where('id', '[0-9]+');
 
-Route::get('/', function () {
-    return view('home');
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('products', ProductController::class);
 });
 
 Route::resource('products', ProductController::class);
