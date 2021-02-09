@@ -8,14 +8,6 @@ use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
-    private $products;
-
-    public function __construct()
-    {
-        $this->products = $this->getProducts();
-    }
-
-
     /**
      * Display a listing of the resource.
      *
@@ -23,8 +15,10 @@ class ProductController extends Controller
      */
     function index()
     {
+        $products = DB::table('products')->get();
+
         return view('product.index', [
-            "products" => $this->products
+            "products" => $products
         ]);
     }
 
@@ -73,12 +67,11 @@ class ProductController extends Controller
      */
     function show(Request $request, $id)
     {
-        $index = $id - 1;
-        if ( $index < 0 || $index >= count($this->products)){
+        $product = DB::table('products')->where('id', $id)->first();
+        
+        if (is_null($product)) {
             abort(404);
         }
-
-        $product = $this->products[$index];
 
         return view('product.show', [
             "product" => $product
@@ -93,13 +86,11 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $index = $id - 1;
-        if ( $index < 0 || $index >= count($this->products)){
+        $product = DB::table('products')->where('id', $id)->first();
+
+        if (is_null($product)) {
             abort(404);
         }
-
-        $product = $this->products[$index];
-
         return view('product.edit', [
             "product" => $product
         ]);
@@ -114,14 +105,44 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $index = $id - 1;
-        if ( $index < 0 || $index >= count($this->products)){
+        $product = DB::table('products')->where('id', $id)->first();
+
+        if (is_null($product)) {
             abort(404);
         }
 
-        $product = $this->products[$index];
+        $validatedData = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'price' => ['required', 'integer', 'min:0'],
+            'image' => ['nullable', 'image']
+        ]);
+        unset($validatedData["image"]);
 
-        return redirect()->route('products.edit', ['product' => $product['id']]);
+        if ($request->has('image')) {
+            $diskName = "public";
+            $disk = Storage::disk($diskName);
+            // delete file
+            if ($disk->exists($product->image_url)) {
+                $disk->delete($product->image_url);
+            }
+    
+            // save file
+            $name = $request->file('image')->getClientOriginalName();
+            $path = $request->file('image')->storeAs(
+                'products',
+                $name,
+                $diskName
+            );
+    
+            // save path
+            $validatedData["image_url"] = $path;
+        }
+
+        $affected = DB::table('products')
+                ->where('id', $id)
+                ->update($validatedData);
+
+        return redirect()->route('products.edit', ['product' => $product->id ]);
     }
 
     /**
@@ -132,30 +153,14 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        return redirect()->route('products.index');
-    }
+        $product = DB::table('products')->where('id', $id)->first();
 
-    /**
-     * Get Products data from array
-     *
-     * 
-     * @return \Illuminate\Http\Response
-     */
-    private function getProducts()
-    {
-        return [
-            [
-                "id" => 1,
-                "name" => "Orange",
-                "price" => 30,
-                "imageUrl" => asset('images/orange01.jpg')
-            ],
-            [
-                "id" => 2,
-                "name" => "Apple",
-                "price" => 20,
-                "imageUrl" => asset('images/apple01.jpg')
-            ]
-        ];
+        if (is_null($product)) {
+            return redirect()->route('products.index');
+        }
+
+        $product = DB::table('products')->where('id', $id)->delete();
+
+        return redirect()->route('products.index');
     }
 }

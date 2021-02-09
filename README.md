@@ -51,10 +51,6 @@ php artisan key:generate
 
 php artisan migrate
 
-php artisan db:seed
-
-把種子圖片塞進 storage\app\public\products 路徑裡面
-
 javascript 比較麻煩
 
 如果有改動的話, 要記得重新
