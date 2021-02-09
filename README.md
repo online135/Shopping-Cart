@@ -49,6 +49,8 @@ php artisan key:generate
 
 (以上是開發狀態不用管 key 的時候的作法)
 
+php artisan migrate
+
 javascript 比較麻煩
 
 如果有改動的話, 要記得重新

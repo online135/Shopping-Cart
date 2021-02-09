@@ -4,7 +4,7 @@
 
 <h1>Home</h1>
 <div>
-    <a href="http://127.0.0.1/download/03?token=123456">Download</a>
+    <a href='{{ "/download/03?token=$token" }}' download>Download</a>
 </div>
 
 @endsection
