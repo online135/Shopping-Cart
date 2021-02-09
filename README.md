@@ -49,6 +49,12 @@ php artisan key:generate
 
 (以上是開發狀態不用管 key 的時候的作法)
 
+php artisan migrate
+
+php artisan db:seed
+
+把種子圖片塞進 storage\app\public\products 路徑裡面
+
 javascript 比較麻煩
 
 如果有改動的話, 要記得重新

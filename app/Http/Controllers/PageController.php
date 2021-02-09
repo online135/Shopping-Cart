@@ -15,7 +15,9 @@ class PageController extends Controller
 
     function home()
     {
-        return view('home');
+        return view('home', [
+            "token" => '1234156'
+        ]);
     }
 
 
