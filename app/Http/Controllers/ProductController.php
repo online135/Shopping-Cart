@@ -168,6 +168,10 @@ class ProductController extends Controller
             return redirect()->route('products.index');
         }
 
+        if ($disk->exists($product->image_url)) {
+            $disk->delete($product->image_url);
+        }
+
         $product = DB::table('products')->where('id', $id)->delete();
 
         return redirect()->route('products.index');
