@@ -40,22 +40,29 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $diskName = "public";
-        $name = $request->file('product_image')->getClientOriginalName();
-        $path = $request->file('product_image')->storeAs(
-            'products',
-            $name,
-            $diskName
-        );
-        $url = Storage::disk($diskName)->url($path);
-
-        DB::table('products')->insert([
-            'name' => $request->input('product_name'),
-            'price' => $request->input('product_price'),
-            'image_url' => $url
+        $validatedData = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'price' => ['required', 'integer', 'min:0'],
+            'image' => ['nullable', 'image']
         ]);
+        unset($validatedData["image"]);
+
+        if ($request->has('image')) {
+            $diskName = "public";
+            $name = $request->file('image')->getClientOriginalName();
+            $path = $request->file('image')->storeAs(
+                'products',
+                $name,
+                $diskName
+            );
+    
+            // save path
+            $validatedData["image_url"] = $path;
+
+        DB::table('products')->insert($validatedData);
 
         return redirect()->route('products.index');
+        }
     }
 
     /**
@@ -77,6 +84,8 @@ class ProductController extends Controller
             "product" => $product
         ]);
     }
+
+
 
     /**
      * Show the form for editing the specified resource.

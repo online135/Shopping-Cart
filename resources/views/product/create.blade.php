@@ -16,10 +16,21 @@
         </label>
     </div>
     <br />
-    <div>
+    <div class="image_previewer">
         <label>
-            Product image: <input type="file" name="image"/>
+            Product image:
+                <input
+                    type="file"
+                    name="image"
+                />
         </label>
+        <br/>
+        <div>
+            <img
+                style="max-width: 400px"
+                src="https://via.placeholder.com/400x300"
+            />
+        </div>
     </div>
     <br />
     <div>
@@ -39,4 +50,7 @@
 
 @section('inline_js')
     @parent
+    <script>
+        imagePreviewer('image_previewer')
+    </script>
 @endsection

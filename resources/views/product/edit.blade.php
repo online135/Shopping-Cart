@@ -17,10 +17,21 @@
         </label>
     </div>
     <br />
-    <div>
+    <div class="image_previewer">
         <label>
-            Product image: <input type="file" name="image" accept="image/png, image/jpeg"/>
+            Product image:
+                <input
+                    type="file"
+                    name="image"
+                />
         </label>
+        <br/>
+        <div>
+            <img
+                style="max-width: 400px"
+                src="{{ asset('storage/'.$product->image_url) }}"
+            />
+        </div>
     </div>
     <br />
     <div>
@@ -40,4 +51,7 @@
 
 @section('inline_js')
     @parent
+    <script>
+        imagePreviewer('image_previewer')
+    </script>
 @endsection
