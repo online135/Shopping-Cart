@@ -31,7 +31,7 @@
                 style="max-width: 400px"
                 id="preview_product_image"
                 src="https://via.placeholder.com/400x300"
-                />
+            />
         </div>
         <script>
 
