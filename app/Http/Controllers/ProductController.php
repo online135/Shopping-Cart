@@ -168,6 +168,8 @@ class ProductController extends Controller
             return redirect()->route('products.index');
         }
 
+        $diskName = "public";
+        $disk = Storage::disk($diskName);
         if ($disk->exists($product->image_url)) {
             $disk->delete($product->image_url);
         }
