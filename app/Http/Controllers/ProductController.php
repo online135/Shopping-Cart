@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use App\Models\Product;
+use App\Models\Category;
 
 class ProductController extends Controller
 {
@@ -13,9 +15,15 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    function index()
+    function index(Request $request)
     {
-        $products = DB::table('products')->get();
+        $category_id = $request->input('category_id');
+        if (!empty($category_id)) {
+            $category = Category::find($category_id);
+            $products = $category->products;
+        } else {
+            $products = Product::all();
+        }
 
         return view('product.index', [
             "products" => $products
@@ -59,7 +67,7 @@ class ProductController extends Controller
             // save path
             $validatedData["image_url"] = $path;
 
-        DB::table('products')->insert($validatedData);
+        $product = Product::create($validatedData);
 
         return redirect()->route('products.index');
         }
@@ -74,11 +82,7 @@ class ProductController extends Controller
      */
     function show(Request $request, $id)
     {
-        $product = DB::table('products')->where('id', $id)->first();
-        
-        if (is_null($product)) {
-            abort(404);
-        }
+        $product = Product::findOrFail($id);
 
         return view('product.show', [
             "product" => $product
@@ -95,11 +99,8 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = DB::table('products')->where('id', $id)->first();
+        $product = Product::findOrFail($id);
 
-        if (is_null($product)) {
-            abort(404);
-        }
         return view('product.edit', [
             "product" => $product
         ]);
@@ -114,11 +115,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $product = DB::table('products')->where('id', $id)->first();
-
-        if (is_null($product)) {
-            abort(404);
-        }
+        $product = Product::findOrFail($id);
 
         $validatedData = $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -147,9 +144,7 @@ class ProductController extends Controller
             $validatedData["image_url"] = $path;
         }
 
-        $affected = DB::table('products')
-                ->where('id', $id)
-                ->update($validatedData);
+        $product->update($validatedData);
 
         return redirect()->route('products.edit', ['product' => $product->id ]);
     }
@@ -162,7 +157,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $product = DB::table('products')->where('id', $id)->first();
+        $product = Product::find($id);
 
         if (is_null($product)) {
             return redirect()->route('products.index');
@@ -174,7 +169,7 @@ class ProductController extends Controller
             $disk->delete($product->image_url);
         }
 
-        $product = DB::table('products')->where('id', $id)->delete();
+        $product->delete();
 
         return redirect()->route('products.index');
     }

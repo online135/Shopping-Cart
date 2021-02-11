@@ -7,13 +7,25 @@
     @method('PATCH')
     <div>
         <label>
-            Product name: <input type="text" name="name" value="{{ old('product_name') ?? $product->name }}"/>
+            Product name: <input type="text" name="name" value="{{ old('name') ?? $product->name }}"/>
         </label>
     </div>
     <br />
     <div>
         <label>
-            Product price: <input type="number" min=0 name="price" value="{{ old('product_price') ?? $product->price }}"/>
+            Product price: <input type="number" min=0 name="price" value="{{ old('price') ?? $product->price }}"/>
+        </label>
+    </div>
+    <br />
+    <div>
+        <label>
+            Product brand name: <input type="text" name="brand_name" value="{{ old('brand_name') ?? $product->brand_name }}"/>
+        </label>
+    </div>
+    <br />
+    <div>
+        <label>
+            Product category name: <input type="text" name="category_name" value="{{ old('category_name') ?? $product->category_name }}"/>
         </label>
     </div>
     <br />
