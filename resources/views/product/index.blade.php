@@ -13,6 +13,13 @@
         <a href="{{ route('products.show', ['product' => $product->id ]) }}">
             <img width="400" src="{{ asset('storage/'.$product->image_url) }}">
         </a>
+        <p>{{ $product->name }}</p>
+        <p>{{ $product->brand_name }}</p>
+        <p>
+            <a href="{{ route('products.index', ['category_id' => @$product->category->id ]) }}">
+                {{ @$product->category->name }}
+            </a>
+        </p>
     </div>
     <div>
         <a href="{{ route('products.edit', ['product' => $product->id ]) }}">Edit</a>
@@ -21,7 +28,6 @@
             @method('delete')
             <button type="submit">delete</button>
         </form>
-    
     </div>
     <hr/>
 </div>
