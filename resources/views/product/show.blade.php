@@ -1,7 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-
+<div>
+@foreach ($product->categoriesList() as $category)
+    @if ($loop->first)
+        {{ $category->name }}
+    @else
+        >> {{ $category->name }}
+    @endif
+@endforeach
+</div>
 <h1>{{ $product->name }}</h1>
 <img width="400" src="{{ asset('storage/'.$product->image_url) }}">
 <div style="margin: 36px 0;">

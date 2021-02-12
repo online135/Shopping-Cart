@@ -25,7 +25,29 @@ class Product extends Model
         return @$this->category->name ?: "Default";
     }
 
+    public function categoriesList() {
+        $categories = [];
+        $tmp = $this->category;
+        while(!is_null($tmp)) {
+            array_unshift($categories, $tmp);
+            $tmp = $tmp->parent;
+        }
+        return $categories;
+    }
+
     public function tags() {
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tag::class, 'product_tag')
+                    ->using(ProductTag::class)
+                    ->withPivot(['enabled'])
+                    ->withTimestamps();
+    }
+
+    public function enabledRelatedTags() {
+        return $this->belongsToMany(Tag::class, 'product_tag')
+                    ->using(ProductTag::class)
+                    ->withPivot(['enabled', 'order_index'])
+                    ->withTimestamps()
+                    ->wherePivot('enabled', true)
+                    ->orderByPivot('order_index', 'desc');
     }
 }
