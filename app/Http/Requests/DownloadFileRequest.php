@@ -16,7 +16,7 @@ class DownloadFileRequest extends FormRequest
         if (Storage::disk('restrict_files')->missing($fileName)) {
             return abort(404);
         } else {
-        return Storage::disk('restrict_files')->download($fileName);
+            return Storage::disk('restrict_files')->download($fileName);
         }
     }
 

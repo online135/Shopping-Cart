@@ -63,7 +63,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'check.token' => \App\Http\Middleware\CheckToken::class,
-        'web.token' => \App\Http\Middleware\IsWebToken::class,
-        'web.downloadfile' => \App\Http\Middleware\CanDownloadFile::class,
+        'pbweb.token' => \App\Http\Middleware\IsPBWebToken::class,
+        'pbweb.downloadfile' => \App\Http\Middleware\CanDownloadFile::class,
     ];
 }

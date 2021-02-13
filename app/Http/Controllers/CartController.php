@@ -7,13 +7,7 @@ use Illuminate\Support\Facades\Cookie;
 
 class CartController extends Controller
 {
-    /**
-     * Display a listing of the resource in the cart.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    function index(Request $request) {
+    function index(Request $request){
         $cartItems = $this->getCartItems();
 
         return view('cart.index', [
@@ -21,15 +15,16 @@ class CartController extends Controller
         ]);
     }
 
-    public function updateCookie(Request $request) {
+    public function updateCookie(Request $request){
         $cart = $this->getCartFromCookie();
-        foreach($cart as $productId => $currentQuantity) {
+        foreach($cart as $productId => $currentQuantity){
             $key = "product_" . $productId;
             if($request->has($key)) {
                 $cart[$productId] = $request->input($key);
             }
         }
         $cart = json_encode($cart, true);
+        
         Cookie::queue(
             Cookie::make('cart', $cart, 60 * 24 * 7, null, null, false, false)
         );
@@ -37,13 +32,12 @@ class CartController extends Controller
         return redirect()->route('cart.index');
     }
 
-    public function deleteCookie(Request $request) {
-
-        if ($request->has('id')) {
+    public function deleteCookie(Request $request){
+        if ($request->has('id')){
             $productId = $request->input('id');
             $cart = $this->getCartFromCookie();
 
-            if (isset($cart[$productId])) {
+            if ( isset($cart[$productId]) ){
                 unset($cart[$productId]);
                 $cartToJson = empty($cart) ? "{}" : json_encode($cart, true);
                 Cookie::queue(
@@ -52,39 +46,35 @@ class CartController extends Controller
                 return response('success');
             }
         }
-        return response('fail');
+        return response('failed');
     }
 
-    private function getCartFromCookie() {
+    private function getCartFromCookie(){
         $cart = Cookie::get('cart');
-
-        return $cart = (!is_null($cart)) ? json_decode($cart, true) : [];
+        return (!is_null($cart)) ? json_decode($cart, true) : [];
     }
 
     private function getCartItems() {
-        // [ id => quantity ]
+        //[ id => quantity]
         $cart = $this->getCartFromCookie();
 
         // [id]
         $productIds = array_keys($cart);
 
         // [
-        //    [ product => value, quantity => value]
+        //    [ product => value, quantity =>value]
         //]
-        $cartItems = array_map(function($productId) use ($cart) {
+        $cartItems = array_map(function($productId) use ($cart){
             $quantity = $cart[$productId];
             $product = $this->getProduct($productId);
-
             if ($product) {
                 return [
                     "product" => $product,
-                    "quantity" => $quantity
+                    "quantity" => $quantity,
                 ];
             } else {
                 return null;
             }
-
-
         }, $productIds);
 
         return $cartItems;
@@ -92,28 +82,21 @@ class CartController extends Controller
 
     private function getProduct($id) {
         $products = $this->getProducts();
-
         foreach($products as $product){
-            if ($product['id'] == $id) {
+            if ($product["id"] == $id){
                 return $product;
             }
         }
         return null;
     }
 
-    /**
-     * Get Products data from array
-     *
-     * 
-     * @return \Illuminate\Http\Response
-     */
     private function getProducts()
     {
         return [
             [
                 "id" => 1,
                 "name" => "Orange",
-                "price" => 30,
+                "price" => 33,
                 "imageUrl" => asset('images/orange01.jpg')
             ],
             [

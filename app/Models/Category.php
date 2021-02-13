@@ -7,21 +7,39 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    protected $fillable = [
-        'name'
-    ];
+    protected $fillable = ['name'];
 
     use HasFactory;
 
-    public function products() {
-        return $this->hasMany(Product::class);
+    static public function getDefault(){
+        return self::first();
     }
 
-    public function parent() {
-        return $this->belongsTo(Category::class, 'parent_id');
+    static public function getOrCreateDefaultIfNotExist(){
+        $default = self::getDefault();
+        if (is_null($default)){
+            $default = Category::create([
+                'name' => '未分類',
+            ]);
+        }
+        return $default;
     }
 
-    public function children() {
-        return $this->hasMany(Category::class, 'parent_id');
+
+    public function subcategories()
+    {
+        return $this->hasMany(Subcategory::class);
+    }
+
+    public function product()
+    {
+        return $this->hasOneThrough(
+            Product::class,  // 1
+            Subcategory::class,  // 2
+            'category_id',   // 2 
+            'subcategory_id', // 1
+            'id',   // 1
+            'id'    // 2
+        );
     }
 }

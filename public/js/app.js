@@ -107,12 +107,12 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cart__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cart */ "./resources/js/cart.js");
-/* harmony import */ var _imagePreviewer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./imagePreviewer */ "./resources/js/imagePreviewer.js");
+/* harmony import */ var _imageUploader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./imageUploader */ "./resources/js/imageUploader.js");
 
 
 window.initAddToCart = _cart__WEBPACK_IMPORTED_MODULE_0__["initAddToCart"];
 window.initCartDeleteButton = _cart__WEBPACK_IMPORTED_MODULE_0__["initCartDeleteButton"];
-window.imagePreviewer = _imagePreviewer__WEBPACK_IMPORTED_MODULE_1__["default"];
+window.imageUploader = _imageUploader__WEBPACK_IMPORTED_MODULE_1__["default"];
 
 /***/ }),
 
@@ -132,6 +132,7 @@ function initCart() {
 }
 
 function getCart() {
+  console.log(document.cookie);
   var cart = Cookies.get('cart');
   return !cart ? {} : JSON.parse(cart);
 }
@@ -188,9 +189,9 @@ function initCartDeleteButton(actionUrl) {
       var csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
       var csrfToken = csrfTokenMeta.content;
       formData.append("_token", csrfToken);
-      formData.append('id', dataId);
+      formData.append("id", dataId);
       var request = new XMLHttpRequest();
-      request.open('POST', actionUrl);
+      request.open("POST", actionUrl);
 
       request.onreadystatechange = function () {
         if (request.readyState === XMLHttpRequest.DONE && request.status === 200 && request.responseText === "success") {
@@ -207,10 +208,10 @@ function initCartDeleteButton(actionUrl) {
 
 /***/ }),
 
-/***/ "./resources/js/imagePreviewer.js":
-/*!****************************************!*\
-  !*** ./resources/js/imagePreviewer.js ***!
-  \****************************************/
+/***/ "./resources/js/imageUploader.js":
+/*!***************************************!*\
+  !*** ./resources/js/imageUploader.js ***!
+  \***************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -222,7 +223,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-var imagePreviewer = function imagePreviewer(className) {
+var imageUploader = function imageUploader(className) {
   var containers = document.querySelectorAll(".".concat(className));
 
   var _iterator = _createForOfIteratorHelper(containers),
@@ -263,7 +264,7 @@ var imagePreviewer = function imagePreviewer(className) {
   }
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (imagePreviewer);
+/* harmony default export */ __webpack_exports__["default"] = (imageUploader);
 
 /***/ }),
 

@@ -18,13 +18,13 @@ class ProductSeeder extends Seeder
         DB::table('products')->insert([
             'name' => "Orange",
             'price' => 30,
-            'image_url' => "http://127.0.0.1/storage/products/orange01.jpg",
+            'image_url' => "http://localhost:8000/storage/products/orange01.jpg"
         ]);
 
         DB::table('products')->insert([
             'name' => "Apple",
             'price' => 20,
-            'image_url' => "http://127.0.0.1/storage/products/apple01.jpg",
+            'image_url' => "http://localhost:8000/storage/products/apple01.jpg"
         ]);
     }
 }

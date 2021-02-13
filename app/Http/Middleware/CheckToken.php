@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class CanDownloadFile
+class CheckToken
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,10 @@ class CanDownloadFile
      */
     public function handle(Request $request, Closure $next)
     {
-        $token = $request->input('token');
-        if ($token != "123456" ){
-            return abort(401);
+        if ($request->token != "123456") {
+            return redirect('/');
         }
+
         return $next($request);
     }
 }

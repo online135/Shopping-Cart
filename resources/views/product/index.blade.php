@@ -16,14 +16,14 @@
         <p>{{ $product->name }}</p>
         <p>{{ $product->brand_name }}</p>
         <p>
-            <a href="{{ route('products.index', ['category_id' => @$product->category->id ]) }}">
+            <a href="{{ route('products.index', ['c_id' => @$product->category->id ])  }}">
                 {{ @$product->category->name }}
             </a>
         </p>
     </div>
     <div>
         <a href="{{ route('products.edit', ['product' => $product->id ]) }}">Edit</a>
-        <form method="post" action="{{ route('products.destroy', ['product' => $product->id]) }}">
+        <form method="post" action="{{ route('products.destroy', ['product' => $product->id ]) }}">
             @csrf
             @method('delete')
             <button type="submit">delete</button>

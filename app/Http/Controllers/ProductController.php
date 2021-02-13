@@ -7,45 +7,47 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Subcategory;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    function index(Request $request)
+    public function index(Request $request)
     {
-        $category_id = $request->input('category_id');
-        if (!empty($category_id)) {
-            $category = Category::find($category_id);
+        $c_id = $request->input('c_id');
+        $sub_id = $request->input('sub_id');
+        if (!empty($c_id)){
+            $category = Category::find($c_id);
             $products = $category->products;
-        } else {
+        } else if(!empty($sub_id)){
+            $subcategory = Subcategory::find($sub_id);
+            $products = $subcategory->products;
+        } else  {
             $products = Product::all();
         }
 
         return view('product.index', [
-            "products" => $products
+            "products" => $products,
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function show($id, Request $request)
+    {
+        $product = Product::findOrFail($id);
+        $subcategory = $product->subcategory;
+        $category = $subcategory->category;
+
+        return view('product.show', [
+            "product" => $product,
+            "category" => $category,
+            "subcategory" => $subcategory
+        ]);
+    }
+
     public function create()
     {
         return view('product.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -55,64 +57,38 @@ class ProductController extends Controller
         ]);
         unset($validatedData["image"]);
 
-        if ($request->has('image')) {
+        if ($request->has('image')){
             $diskName = "public";
             $name = $request->file('image')->getClientOriginalName();
             $path = $request->file('image')->storeAs(
-                'products',
+                'products', 
                 $name,
                 $diskName
             );
-    
-            // save path
             $validatedData["image_url"] = $path;
+        }
 
+        // $product = new Product();
+        // $product->name = $validatedData['name'];
+        // $product->price = $validatedData['price'];
+        // $product->image_url = $validatedData['image_url'];
+        // $result = $product->save();
         $product = Product::create($validatedData);
 
         return redirect()->route('products.index');
-        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    function show(Request $request, $id)
-    {
-        $product = Product::findOrFail($id);
+    
 
-        return view('product.show', [
-            "product" => $product
-        ]);
-    }
-
-
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $product = Product::findOrFail($id);
 
         return view('product.edit', [
-            "product" => $product
+            "product" => $product,
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $product = Product::findOrFail($id);
@@ -120,22 +96,25 @@ class ProductController extends Controller
         $validatedData = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'price' => ['required', 'integer', 'min:0'],
+            'brand_name' => ['required', 'string'],
+            'category_name' => ['required', 'string'],
             'image' => ['nullable', 'image']
         ]);
         unset($validatedData["image"]);
 
-        if ($request->has('image')) {
+
+        if ($request->has('image')){
             $diskName = "public";
             $disk = Storage::disk($diskName);
             // delete file
-            if ($disk->exists($product->image_url)) {
+            if ($disk->exists($product->image_url)){
                 $disk->delete($product->image_url);
             }
     
             // save file
             $name = $request->file('image')->getClientOriginalName();
             $path = $request->file('image')->storeAs(
-                'products',
+                'products', 
                 $name,
                 $diskName
             );
@@ -144,28 +123,22 @@ class ProductController extends Controller
             $validatedData["image_url"] = $path;
         }
 
-        $product->update($validatedData);
+        $result = $product->update($validatedData);
 
-        return redirect()->route('products.edit', ['product' => $product->id ]);
+        return redirect()->route('products.edit', ['product' => $product->id]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $product = Product::find($id);
 
-        if (is_null($product)) {
+        if (is_null($product)){
             return redirect()->route('products.index');
         }
 
         $diskName = "public";
         $disk = Storage::disk($diskName);
-        if ($disk->exists($product->image_url)) {
+        if ($disk->exists($product->image_url)){
             $disk->delete($product->image_url);
         }
 

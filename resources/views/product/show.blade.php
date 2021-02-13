@@ -2,13 +2,13 @@
 
 @section('content')
 <div>
-@foreach ($product->categoriesList() as $category)
-    @if ($loop->first)
+    <a href="{{ route('products.index', ['c_id' => $category->id ])  }}">
         {{ $category->name }}
-    @else
-        >> {{ $category->name }}
-    @endif
-@endforeach
+    </a>
+    &nbsp;>>&nbsp;
+    <a href="{{ route('products.index', ['sub_id' => $subcategory->id ])  }}">
+        {{ $subcategory->name }}
+    </a>
 </div>
 <h1>{{ $product->name }}</h1>
 <img width="400" src="{{ asset('storage/'.$product->image_url) }}">

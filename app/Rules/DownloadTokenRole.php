@@ -25,7 +25,7 @@ class DownloadTokenRole implements Rule
      */
     public function passes($attribute, $value)
     {
-        return preg_match('/^[0-9a-fA-F]{6,10}$/i', $value);
+        return preg_match('/^[0-9a-fA-F]{6,10}$/i',$value); 
     }
 
     /**
@@ -35,6 +35,6 @@ class DownloadTokenRole implements Rule
      */
     public function message()
     {
-        return 'Your download key is invalid';
+        return 'Your download key is invalided.';
     }
 }

@@ -7,15 +7,17 @@ use Illuminate\Contracts\Validation\Rule;
 class ProductImageRule implements Rule
 {
     private $name;
+    private $msg;
 
     /**
      * Create a new rule instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($msg)
     {
         //
+        $this->msg = $msg;
     }
 
     /**
@@ -29,7 +31,7 @@ class ProductImageRule implements Rule
     {
         $this->name = $attribute;
         // 'regex:/^images\/\w+\.(png|jpe?g)$/i'
-        return preg_match('/^images\/\w+\.(png|jpe?g)$/i', $value);
+        return preg_match('/^images\/\w+\.(png|jpe?g)$/i',$value); 
     }
 
     /**
@@ -39,6 +41,7 @@ class ProductImageRule implements Rule
      */
     public function message()
     {
-        return "The validation for $this->name is failed.";
+        // return "The validation for $this->name is failed.";
+        return $this->msg;
     }
 }

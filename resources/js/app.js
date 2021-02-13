@@ -3,8 +3,8 @@ import {
     initCartDeleteButton
 } from './cart'
 
-import imagePreviewer from './imagePreviewer'
+import imageUploader from './imageUploader'
 
 window.initAddToCart = initAddToCart
 window.initCartDeleteButton = initCartDeleteButton
-window.imagePreviewer = imagePreviewer
+window.imageUploader = imageUploader

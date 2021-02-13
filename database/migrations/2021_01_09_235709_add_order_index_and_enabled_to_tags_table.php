@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductTagTable extends Migration
+class AddOrderIndexAndEnabledToTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreateProductTagTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_tag', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('tag_id');
+        Schema::table('tags', function (Blueprint $table) {
             $table->unsignedInteger('order_index')->default(9999);
             $table->boolean('enabled')->default(true);
-            $table->timestamps();
         });
     }
 
@@ -30,6 +26,9 @@ class CreateProductTagTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_tag');
+        Schema::table('tags', function (Blueprint $table) {
+            $table->dropColumn('order_index');
+            $table->dropColumn('enabled');
+        });
     }
 }

@@ -2,10 +2,8 @@
 
 @section('content')
 
-<h1>Home</h1>
-<div>
-    <a href="{{ "/download/03?token=$token" }}" download>Download</a>
-</div>
+<h1>Progress bar {{ $ver }} level {{ $level }}</h1>
+
 @endsection
 
 @section('inline_js')

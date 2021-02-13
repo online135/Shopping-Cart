@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
 <form method="post" action="{{ route('products.store') }}" enctype="multipart/form-data">
     @csrf
     <div>
@@ -16,19 +15,18 @@
         </label>
     </div>
     <br />
-    <div class="image_previewer">
+    <div class="image_uploader">
         <label>
-            Product image:
-                <input
-                    type="file"
-                    name="image"
+            Product image: 
+                <input 
+                    type="file" 
+                    name="image" 
                 />
-        </label>
-        <br/>
+        </label><br/>
         <div>
-            <img
+            <img 
                 style="max-width: 400px"
-                src="https://via.placeholder.com/400x300"
+                src="https://via.placeholder.com/400x300" 
             />
         </div>
     </div>
@@ -37,10 +35,10 @@
         <button type="submit">Submit</button>
     </div>
 </form>
-        @if($errors->products->any())
+        @if ($errors->products->any())
             <div class="alert alert-danger">
                 <ul>
-                    @foreach($errors->products->all() as $error)
+                    @foreach ($errors->products->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
                 </ul>
@@ -51,6 +49,6 @@
 @section('inline_js')
     @parent
     <script>
-        imagePreviewer('image_previewer')
+        imageUploader('image_uploader')
     </script>
 @endsection

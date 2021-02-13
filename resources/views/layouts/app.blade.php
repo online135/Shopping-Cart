@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>購物車</title>
+        <title>進度條 Laravel Controller 章節</title>
         @include('layouts.meta')
         @include('layouts.css')
     </head>
@@ -12,5 +12,14 @@
 
         @section('inline_js')
         @show
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
     </body>
 </html>
