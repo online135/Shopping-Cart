@@ -1,10 +1,3 @@
-import {
-    initAddToCart,
-    initCartDeleteButton
-} from './cart'
+require('./bootstrap');
 
-import imageUploader from './imageUploader'
-
-window.initAddToCart = initAddToCart
-window.initCartDeleteButton = initCartDeleteButton
-window.imageUploader = imageUploader
+require('alpinejs');
