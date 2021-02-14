@@ -62,8 +62,5 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'check.token' => \App\Http\Middleware\CheckToken::class,
-        'pbweb.token' => \App\Http\Middleware\IsPBWebToken::class,
-        'pbweb.downloadfile' => \App\Http\Middleware\CanDownloadFile::class,
     ];
 }
