@@ -10,28 +10,14 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
     </head>
     <body>
-            @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                    @auth
-                        <p>hi, {{ Auth::user()->name }}</p>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-
-                            <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                {{ __('Logout') }}
-                            </x-dropdown-link>
-                        </form>
-                    @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
+        <div><a href="{{ route('members.session.create') }}">Log in</a></div>
+        <div><a href="{{ route('members.create') }}">Register</a></div>
+        <form method="POST" action="{{ route('members.session.delete') }}">
+            @csrf
+            @method('DELETE')
+            <button type="submit">Log out</button>
+        </form>
+        <hr />
         @yield('content')
         @section('inline_js')
         @show
