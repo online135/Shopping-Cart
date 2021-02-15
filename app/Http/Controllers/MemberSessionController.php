@@ -9,7 +9,16 @@ class MemberSessionController extends Controller
 {
     public function create()
     {
-        return view('members.login');
+        session()->invalidate();
+        var_dump(session('user.teams'));
+        echo "<hr/>";
+
+        session()->put('user.teams', [123]);
+        var_dump(session('user.teams'));
+        echo "<hr/>";
+
+
+        // return view('members.login',);
     }
 
     public function store(Request $request)
