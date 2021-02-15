@@ -21,20 +21,19 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Controls\PageController as ControlsPageController;
 
-use App\Http\Controllers\MemberController;
-use App\Http\Controllers\MemberSessionController;
-
+// use App\Http\Controllers\MemberController;
+// use App\Http\Controllers\MemberSessionController;
+// Route::prefix('members')->name('members.')->group(function(){
+//     Route::resource('/', MemberController::class)->only(['create', 'store']);
+//     Route::delete('/session', [MemberSessionController::class, 'delete'])->name('session.delete');
+//     Route::resource('session', MemberSessionController::class)->only([
+//         'create', 
+//         'store',
+//     ]);
+// });
 
 Route::get('/', [PageController::class, 'home']);
 
-Route::prefix('members')->name('members.')->group(function(){
-    Route::resource('/', MemberController::class)->only(['create', 'store']);
-    Route::delete('/session', [MemberSessionController::class, 'delete'])->name('session.delete');
-    Route::resource('session', MemberSessionController::class)->only([
-        'create', 
-        'store',
-    ]);
-});
 
 // == not logged in ==
 // page
@@ -56,7 +55,7 @@ Route::prefix('members')->name('members.')->group(function(){
 // controls/categories
 // controls/users
 // controls/carts
-Route::prefix('controls')->name('controls.')->middleware(['auth'])->group(function () {
+Route::prefix('controls')->name('controls.')->middleware(['verified'])->group(function () {
     Route::get('/', [ControlsPageController::class, 'home'])->name('home');
 });
 

@@ -31,3 +31,49 @@ javascript 比較麻煩
 npm run watch
 
 去啟動跟更新新的 node.js
+
+
+-----
+
+Email 要設定 smtp, 類似如下設定
+
+1. 設定 gmail 兩步驟認證
+(Password要去gmail設定"應用程式密碼", 下面的密碼是假的範例)
+
+2. 切換到『應用程式密碼頁面/App-specific passwords』，點選『管理應用程式密碼/manage application-specific passwords』。
+
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=465
+MAIL_USERNAME=b97b01067@gmail.com
+MAIL_PASSWORD="abcdefg"
+MAIL_ENCRYPTION=SSL
+MAIL_FROM_ADDRESS=b97b01067@gmail.com
+MAIL_FROM_NAME="${APP_NAME}"
+
+
+----
+
+watch 執行的時候出現 ERROR 就不會進行下去，也就是你的 css 沒有產出，自然不會有樣式出現。
+
+這好像是滿新的問題，有看到些討論都是 2021年2月的
+
+但不是每個人都碰到表示應該是有一些 node module 出了版本上的問題
+
+你執行
+
+npm i html-webpack-plugin@next -D
+
+後再執行 npm run watch 試試看
+
+縱裕, 日期: 02.15.2021 15:41回應：
+搞不定的話可以下載我的程式繼續做下去，這有點麻煩，通常官方解決後以後也不太會再碰到，也跟我們的課程內容沒有關係。
+
+縱裕, 日期: 02.15.2021 15:42回應：
+另外看到一個解決方案是
+
+webpack-cli 降到 3.3.12 版 
+
+1. 刪除 package.json 中的 webpack-cli
+
+2. npm install webpack-cli@3.3.12
