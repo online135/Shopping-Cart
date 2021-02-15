@@ -3785,6 +3785,18 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./resources/js/app.js":
+/*!*****************************!*\
+  !*** ./resources/js/app.js ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+
+__webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
+
+/***/ }),
+
 /***/ "./resources/js/bootstrap.js":
 /*!***********************************!*\
   !*** ./resources/js/bootstrap.js ***!
@@ -20980,6 +20992,16 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 /***/ }),
 
+/***/ "./resources/css/app.css":
+/*!*******************************!*\
+  !*** ./resources/css/app.css ***!
+  \*******************************/
+/***/ (() => {
+
+throw new Error("Module build failed (from ./node_modules/mini-css-extract-plugin/dist/loader.js):\nTypeError: The 'compilation' argument must be an instance of Compilation\n    at getCompilationHooks (C:\\xampp8\\htdocs\\Shopping-Cart\\node_modules\\webpack\\lib\\javascript\\JavascriptModulesPlugin.js:112:10)\n    at C:\\xampp8\\htdocs\\Shopping-Cart\\node_modules\\webpack\\lib\\javascript\\CommonJsChunkFormatPlugin.js:30:19\n    at Hook.eval [as call] (eval at create (C:\\xampp8\\htdocs\\Shopping-cart\\node_modules\\tapable\\lib\\HookCodeFactory.js:19:10), <anonymous>:7:1)\n    at Hook.CALL_DELEGATE [as _call] (C:\\xampp8\\htdocs\\Shopping-cart\\node_modules\\tapable\\lib\\Hook.js:14:14)\n    at Compiler.newCompilation (C:\\xampp8\\htdocs\\Shopping-cart\\node_modules\\webpack\\lib\\Compiler.js:992:30)\n    at C:\\xampp8\\htdocs\\Shopping-cart\\node_modules\\webpack\\lib\\Compiler.js:1035:29\n    at Hook.eval [as callAsync] (eval at create (C:\\xampp8\\htdocs\\Shopping-cart\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:15:1)\n    at Hook.CALL_ASYNC_DELEGATE [as _callAsync] (C:\\xampp8\\htdocs\\Shopping-cart\\node_modules\\tapable\\lib\\Hook.js:18:14)\n    at Compiler.compile (C:\\xampp8\\htdocs\\Shopping-cart\\node_modules\\webpack\\lib\\Compiler.js:1030:28)\n    at Compiler.runAsChild (C:\\xampp8\\htdocs\\Shopping-cart\\node_modules\\webpack\\lib\\Compiler.js:497:8)");
+
+/***/ }),
+
 /***/ "./node_modules/process/browser.js":
 /*!*****************************************!*\
   !*** ./node_modules/process/browser.js ***!
@@ -21225,21 +21247,12 @@ process.umask = function() { return 0; };
 /******/ 	})();
 /******/ 	
 /************************************************************************/
-(() => {
-/*!*****************************!*\
-  !*** ./resources/js/app.js ***!
-  \*****************************/
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
-
-__webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
-})();
-
-(() => {
-/*!*******************************!*\
-  !*** ./resources/css/app.css ***!
-  \*******************************/
-throw new Error("Module build failed (from ./node_modules/mini-css-extract-plugin/dist/loader.js):\nTypeError: The 'compilation' argument must be an instance of Compilation\n    at getCompilationHooks (C:\\xampp8\\htdocs\\Shopping-Cart\\node_modules\\webpack\\lib\\javascript\\JavascriptModulesPlugin.js:119:10)\n    at C:\\xampp8\\htdocs\\Shopping-Cart\\node_modules\\webpack\\lib\\javascript\\CommonJsChunkFormatPlugin.js:30:19\n    at Hook.eval [as call] (eval at create (C:\\xampp8\\htdocs\\Shopping-cart\\node_modules\\tapable\\lib\\HookCodeFactory.js:19:10), <anonymous>:7:1)\n    at Hook.CALL_DELEGATE [as _call] (C:\\xampp8\\htdocs\\Shopping-cart\\node_modules\\tapable\\lib\\Hook.js:14:14)\n    at Compiler.newCompilation (C:\\xampp8\\htdocs\\Shopping-cart\\node_modules\\webpack\\lib\\Compiler.js:992:30)\n    at C:\\xampp8\\htdocs\\Shopping-cart\\node_modules\\webpack\\lib\\Compiler.js:1035:29\n    at Hook.eval [as callAsync] (eval at create (C:\\xampp8\\htdocs\\Shopping-cart\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:15:1)\n    at Hook.CALL_ASYNC_DELEGATE [as _callAsync] (C:\\xampp8\\htdocs\\Shopping-cart\\node_modules\\tapable\\lib\\Hook.js:18:14)\n    at Compiler.compile (C:\\xampp8\\htdocs\\Shopping-cart\\node_modules\\webpack\\lib\\Compiler.js:1030:28)\n    at Compiler.runAsChild (C:\\xampp8\\htdocs\\Shopping-cart\\node_modules\\webpack\\lib\\Compiler.js:497:8)");
-})();
-
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	__webpack_require__("./resources/js/app.js");
+/******/ 	// This entry module doesn't tell about it's top-level declarations so it can't be inlined
+/******/ 	var __webpack_exports__ = __webpack_require__("./resources/css/app.css");
+/******/ 	
 /******/ })()
 ;
