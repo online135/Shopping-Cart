@@ -10,13 +10,17 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
     </head>
     <body>
-        <div><a href="{{ route('members.session.create') }}">Log in</a></div>
-        <div><a href="{{ route('members.create') }}">Register</a></div>
-        <form method="POST" action="{{ route('members.session.delete') }}">
-            @csrf
-            @method('DELETE')
-            <button type="submit">Log out</button>
-        </form>
+        @if (MemberAuth::isLoggedIn())
+            <p>Hi, {{ MemberAuth::member()->email }}</p>
+            <form method="POST" action="{{ route('members.session.delete') }}">
+                @csrf
+                @method('DELETE')
+                <button type="submit">Log out</button>
+            </form>
+        @else 
+            <div><a href="{{ route('members.session.create') }}">Log in</a></div>
+            <div><a href="{{ route('members.create') }}">Register</a></div>
+        @endif
         <hr />
         @yield('content')
         @section('inline_js')

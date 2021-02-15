@@ -56,7 +56,7 @@ Route::prefix('members')->name('members.')->group(function(){
 // controls/categories
 // controls/users
 // controls/carts
-Route::prefix('controls')->name('controls.')->middleware(['auth'])->group(function () {
+Route::prefix('controls')->name('controls.')->middleware(['member.auth'])->group(function () {
     Route::get('/', [ControlsPageController::class, 'home'])->name('home');
 });
 

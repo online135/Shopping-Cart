@@ -3,36 +3,32 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Member;
+use App\Libraries\MemberAuth;
 
 class MemberSessionController extends Controller
 {
     public function create()
     {
-        session()->invalidate();
-        var_dump(session('user.teams'));
-        echo "<hr/>";
-
-        session()->put('user.teams', [123]);
-        var_dump(session('user.teams'));
-        echo "<hr/>";
-
-
-        // return view('members.login',);
+        if (MemberAuth::isLoggedIn()){
+            return redirect(MemberAuth::HOME);
+        }
+        
+        return view('members.login');
     }
 
     public function store(Request $request)
     {
-        $member = Member::where([
-            'email' => $request->email,
-            'password' => $request->password
-        ])->first();
+        MemberAuth::logIn(
+            $request->email, 
+            $request->password
+        );
 
-        return redirect('/');
+        return redirect(MemberAuth::HOME);
     }
 
     public function delete(Request $request)
     {
-        return redirect('/');
+        MemberAuth::logOut();
+        return redirect(MemberAuth::HOME);
     }
 }
