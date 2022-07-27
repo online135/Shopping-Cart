@@ -22,7 +22,7 @@ composer install
 2. extension=php_openssl.dll
 3. extension=php_mbstring.dll
 
-composer config -g -- disable-tls true
+composer config -g -- disable-tls true  (看情況設定)
 
 composer update
 
