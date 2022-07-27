@@ -34,6 +34,10 @@ php artisan key:generate
 
 (以上是開發狀態不用管 key 的時候的作法)
 
+用 php 啟動 server :
+php artisan serve
+http://127.0.0.1:8000/ 
+
 javascript 比較麻煩
 
 如果有改動的話, 要記得重新
