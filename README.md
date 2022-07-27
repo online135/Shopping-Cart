@@ -19,7 +19,9 @@ composer install
 1. extension=fileinfo
 2. extension=php_openssl.dll
 3. extension=mbstring
-4. 
+
+composer install --ignore-platform-req=ext-fileinfo --ignore-platform-req=ext-mbstring --ignore-platform-req=ext-openssl
+
 composer config -g -- disable-tls true
 
 composer update
