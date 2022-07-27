@@ -18,6 +18,9 @@ composer install
 再去調整 
 1. extension=fileinfo
 2. extension=php_openssl.dll
+3. extension=mbstring
+4. 
+composer config -g -- disable-tls true
 
 composer update
 
