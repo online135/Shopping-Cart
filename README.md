@@ -14,6 +14,11 @@ npm update
 
 composer install
 
+=> 這裡可能會跳錯, 先用 php --ini 找出 php.ini 使用的位置
+再去調整 
+1. extension=fileinfo
+2. extension=php_openssl.dll
+
 composer update
 
 複製 .env.example 成 .env => 放在旁邊
