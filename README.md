@@ -16,11 +16,11 @@ composer install
 
 => 這裡可能會跳錯, 先用 php --ini 找出 php.ini 使用的位置
 再去調整 
-1. extension=fileinfo
-2. extension=php_openssl.dll
-3. extension=mbstring
 
-composer install --ignore-platform-req=ext-fileinfo --ignore-platform-req=ext-mbstring --ignore-platform-req=ext-openssl
+(詳細要去 ext 資料夾對照, 要完全相同)
+1. extension=php_fileinfo.dll
+2. extension=php_openssl.dll
+3. extension=php_mbstring.dll
 
 composer config -g -- disable-tls true
 
